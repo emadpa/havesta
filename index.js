@@ -91,8 +91,9 @@ app.use("/api/list",listroute);
 app.use("/api/list/:id/review",reviewroute);
 app.use("/api/user",userroute);
 
-app.use("/",(req,res)=>{
-    return res.render("listings/lists.ejs");
+app.use("/",async (req,res)=>{
+      let listings=await List.find({});
+     return res.render("listings/lists",{listings});
 })
 
 

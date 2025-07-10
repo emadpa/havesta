@@ -1,0 +1,165 @@
+*{
+    margin:0;
+    padding: 0;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+.container{
+    min-height: 100vh;
+ 
+}
+form{
+    padding: 1.5rem;
+}
+
+
+.navbar{
+    height: 5rem;
+    background-color: white;
+}
+.fa-compass{
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.nav-link{
+    color: #222222;
+}
+.f-info{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 8rem;
+    background-color: #ebebeb;
+    text-align: center;
+}
+.f-info-socialmedia,.f-info-links,.f-companyinfo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.f-info-socialmedia i{
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.f-info-links a{
+   text-decoration: none;
+   color: #222222;
+}
+.listing-card{
+    border: none !important;
+    padding:1.5rem;
+    padding-top: 0;
+    margin-bottom: 2rem;
+   
+}
+.card-img-top{
+    width:100%;
+    height: 20rem;
+    border-radius: 1.2rem;
+    object-fit: cover ;
+}
+.card-body{
+    padding-left:0 ;
+}
+.listing-card-text{
+    font-size:1.2rem ;
+   font-weight: bold;
+}
+
+
+.card-img-overlay:hover{
+    background-color: white;
+    opacity:0.2;
+}
+
+footer{
+    margin-bottom: 0px;
+}
+
+.card-text-show{
+    font-weight: 350;
+}
+
+.review-card-title{
+     font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.review-card-text {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #555;
+
+}
+
+#map { 
+    height: 400px;
+    width: 800px;
+ }
+
+ #filters{
+   padding-left:1.5rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items: center;
+  
+    
+ }
+
+ .filter{
+    opacity:0.7;
+    cursor: pointer;
+    margin-right: 2rem;
+    margin-top: 2rem;
+ }
+
+ .filter:hover{
+      
+    opacity: 1;
+ }
+
+ .filter p{
+    font-size: 0.8rem;
+ }
+
+ .tax{
+    display: none;
+ }
+
+.formcheck{
+    border: solid 1px black;
+    border-radius: 1rem;
+    height: 3rem;
+    padding:1rem;
+    margin-left:5rem;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-search{
+    background-color: #fe424d;
+    color:white;
+    border-radius: 1.5rem;
+    padding:0 1rem 0 1rem;
+}
+
+.btn-search:hover{
+    background-color: #fe424d;
+    color:white;
+}
+
+.btn-search i {
+  display: inline;
+  margin-right: 0.3rem;
+}
+
+.search-input{
+
+    border-radius: 1.5rem;
+    padding:0.5rem  2rem 0.5rem 3rem;
+    font-size: 1rem;
+}

@@ -1,0 +1,20 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+  <h2>My Bookings</h2>
+
+  <% if (bookings.length === 0) { %>
+  <p>You have not booked any properties yet.</p>
+  <% } else { %> <% bookings.forEach(b => { %>
+  <div class="card mb-2">
+    <div class="card-body">
+      <h5><%= b.property.title %></h5>
+      <p>
+        <strong>Location:</strong> <%= b.property.location %><br />
+        <strong>From:</strong> <%= b.startDate.toDateString() %><br />
+        <strong>To:</strong> <%= b.endDate.toDateString() %>
+      </p>
+    </div>
+  </div>
+  <% }) %> <% } %>
+</div>

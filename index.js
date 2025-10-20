@@ -1,13 +1,14 @@
 const express=require("express");
 const app=express();
 const mongoose=require("mongoose");
-const List=require("./models/lists.js")
+const List=require("./models/lists.js");
 const path=require("path");
 const port=5000;
 const methodOverride=require("method-override");
 const  ejsmate = require("ejs-mate");
 const listroute=require("./routes/list.js");
 const reviewroute=require("./routes/review.js");
+const bookingroute=require("./routes/book.js");
 const userroute=require("./routes/user.js");
 const session=require("express-session");
 const MongoStore = require('connect-mongo');
@@ -90,11 +91,12 @@ app.use((req,res,next)=>{
 app.use("/api/list",listroute);
 app.use("/api/list/:id/review",reviewroute);
 app.use("/api/user",userroute);
+app.use("/api/list/book",bookingroute);
 
 app.use("/",async (req,res)=>{
       let listings=await List.find({});
      return res.render("listings/lists",{listings});
-})
+});
 
 
 

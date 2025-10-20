@@ -5,7 +5,7 @@ const {isloggedin,validatelist,isowner}=require("../middleware.js");
 const router=express.Router({ mergeParams: true });
 const multer = require('multer');
 const {storage}=require("../cloudconfig.js")
-const upload = multer({ storage })
+const upload = multer({ storage });
 
 
 
@@ -15,7 +15,7 @@ const upload = multer({ storage })
 router.route("/")
       .get(wrapAsync(listscontroller.index))
       .post(isloggedin,validatelist,upload.single('list[image]'),wrapAsync(listscontroller.createlist));
-   
+
 
 router.get("/new",isloggedin,wrapAsync(listscontroller.renderformfornewlist));
 

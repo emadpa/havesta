@@ -49,26 +49,36 @@
       </div>
   </div>
 
-   <div class="row row-cols-md-3 row-cols-lg-4 row-cols-sm-1 g-0">
-        
-        <% for(list of listings) { %>
-         <div class="col  " style="border:none;"> 
-         <a href="/api/list/<%= list._id %>" style="text-decoration:none;">
-           <div class="card h-100 listing-card" >
-               <img src="<%= list.image.url %>" class="card-img-top" alt="...">
-                <div class="card-img-overlay"></div>
-               <div class="card-body mb-0" style="width: 100%;">
-                  <h5 class="card-title"><%= list.title %></h5>
-                  <p class="card-text listing-card-text" style="white-space: nowrap;">
-                     <%=list.price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' }) %>/night &nbsp;&nbsp;<span style="font-weight: normal;font-size: 1rem;" class="tax">+18%GST</span>
-                  </p>
-                  
-               </div>
-            </div>
-         </a>
-      </div>
-        <% } %>
-     </div>
+   <div class="row row-cols-md-3 row-cols-lg-4 row-cols-sm-1 g-3">
+  <% if(listings.length === 0){ %>
+    <div class="col-12 text-center my-4">
+      <p>No listings found for "<%= q || 'all' %>"</p>
+    </div>
+  <% } %>
+
+  <% listings.forEach(list => { %>
+    <div class="col" style="border:none;"> 
+      <a href="/api/list/<%= list._id %>" style="text-decoration:none;">
+        <div class="card h-100 listing-card">
+          <img src="<%= list.image?.url || '/images/default.jpg' %>" class="card-img-top" alt="<%= list.title %>">
+          <div class="card-img-overlay"></div>
+          <div class="card-body mb-0" style="width: 100%;">
+            <h5 class="card-title"><%= list.title %></h5>
+            <p class="card-text listing-card-text" style="white-space: nowrap;">
+              <span class="price">
+                <%= list.price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' }) %>/night
+              </span>
+              &nbsp;&nbsp;<span style="font-weight: normal; font-size:1rem;" class="tax">+18% GST</span>
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% }) %>
+</div>
+
+
+
 
     <script>
        let formswitch=document.querySelector(".form-check-input");

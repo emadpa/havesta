@@ -30,7 +30,10 @@
             <button type="submit" class="btn btn-dark">Delete</button>
           </form>
         </div>
-     <%}%>
+     <%}else if (curuser) { %>
+        
+        <a href="/api/list/book/<%= list._id %>" class="btn btn-success mt-3">Book this Property</a>
+      <% } %>
       </div>
     </div>
   </div>
@@ -38,7 +41,7 @@
   <div class="col-8 offset-2 mb-3 mt-2" >
    <% if(curuser){%> 
     <h4  >Leave a review</h4>
-    <form method="POST" action="/api/list/<%=list._id %>/review" style="padding:0;" novalidate class="needs-validation">
+    <form method="POST" action="/api/list/review/<%=list._id %>" style="padding:0;" novalidate class="needs-validation">
       <div class="mb-2 mt-3">
         <fieldset class="starability-slot">
           <p class="form-label fw-bold">Rating:</p>

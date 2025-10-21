@@ -4,7 +4,7 @@ const {listingschema}=require("./schemavalidation.js");
 
 const isloggedin=(req,res,next)=>{
      if(!req.isAuthenticated()){
-        req.session.redirectUrl=req.originalUrl;
+      req.session.redirectUrl=req.originalUrl;  
         req.flash("error","you must login ");
         return res.redirect("/api/user/login");
     }

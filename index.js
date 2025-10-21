@@ -23,6 +23,7 @@ const User=require("./models/user.js");
 if(process.env.NODE_ENV != "production"){
 
    require('dotenv').config();
+
 }
 
 
@@ -34,6 +35,7 @@ app.use(express.urlencoded({extended: true }));
 app.use(methodOverride("__method"));
 app.engine('ejs', ejsmate);
 app.use(express.static(path.join(__dirname,"/public")));
+
 
 
 main().then((res)=>{                 
@@ -86,12 +88,16 @@ app.use((req,res,next)=>{
     res.locals.error=req.flash("error");
     res.locals.curuser=req.user;
     next();
+
 });
 
+
 app.use("/api/list",listroute);
-app.use("/api/list/:id/review",reviewroute);
+app.use("/api/list/review/:id",reviewroute);
 app.use("/api/user",userroute);
 app.use("/api/list/book",bookingroute);
+
+
 
 app.use("/",async (req,res)=>{
       let listings=await List.find({});

@@ -56,7 +56,7 @@ const listschema = new mongoose.Schema(
 
 const List = mongoose.model("List", listschema);
 
-listschema.post("findOneAndDelete", async (list) => {
+listschema.post("findByIdAndDelete", async (list) => {
   if (list) {
     await Review.deleteMany({ _id: { $in: list.reviews } });
   }

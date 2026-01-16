@@ -1,6 +1,11 @@
-<nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top">
+<nav
+  class="navbar navbar-expand-lg navbar-light bg-body-light border-bottom sticky-top"
+>
   <div class="container-fluid">
+    <!-- Brand -->
     <a class="navbar-brand" href="/"><i class="fa-regular fa-compass"></i></a>
+
+    <!-- Toggler/collapsibe Button -->
     <button
       class="navbar-toggler"
       type="button"
@@ -12,41 +17,64 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Navbar links -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link fw-bold" href="/api/list">Explore</a>
-      </div>
-      <div class="navbarsearch ms-auto">
-        <form class="d-flex" role="search" action="/api/list" method="GET">
-          <input
-            class="form-control me-2 search-input"
-            type="search"
-            name="country"
-            placeholder="Search destinations"
-            aria-label="Search"
-          />
-          <button class="btn btn-search" type="submit">
-            <i class="fa-solid fa-magnifying-glass"></i> Search
-          </button>
-        </form>
-      </div>
-      <div class="navbar-nav ms-auto">
-        <% if(!authenticated){ %>
-        <a class="nav-link fw-bold" aria-current="page" href="/api/user/signup"
-          >Sign Up</a
-        >
-        <a class="nav-link fw-bold" href="/api/user/login">Login</a>
-        <% } %> <% if(authenticated){ %>
-        <a class="nav-link fw-bold" href="/api/list/new">Add your home</a>
-        <a class="nav-link fw-bold" href="/api/list/book/my-bookings"
-          >My Properties</a
-        >
-        <a class="nav-link fw-bold" href="/api/list/book/owner"
-          >Owner Bookings</a
-        >
-        <a class="nav-link fw-bold" href="/api/user/logout">Log Out</a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="/api/list">Explore</a>
+        </li>
+        <% if(authenticated){ %>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="/api/list/new">Add your home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="/api/list/book/my-bookings"
+            >My Properties</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="/api/list/book/owner"
+            >Owner Bookings</a
+          >
+        </li>
         <% } %>
-      </div>
+      </ul>
+
+      <!-- Search form -->
+      <form
+        class="d-flex mb-2 mb-lg-0 me-lg-3"
+        role="search"
+        action="/api/list"
+        method="GET"
+      >
+        <input
+          class="form-control me-2"
+          type="search"
+          name="country"
+          placeholder="Search destinations"
+          aria-label="Search"
+        />
+        <button class="btn btn-search" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+      </form>
+
+      <!-- Auth links -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <% if(!authenticated){ %>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="/api/user/signup">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="/api/user/login">Login</a>
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link fw-bold" href="/api/user/logout">Log Out</a>
+        </li>
+        <% } %>
+      </ul>
     </div>
   </div>
 </nav>

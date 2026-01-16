@@ -31,16 +31,19 @@
         </form>
       </div>
       <div class="navbar-nav ms-auto">
-        
         <% if(!authenticated){ %>
         <a class="nav-link fw-bold" aria-current="page" href="/api/user/signup"
           >Sign Up</a
         >
         <a class="nav-link fw-bold" href="/api/user/login">Login</a>
         <% } %> <% if(authenticated){ %>
-         <a class="nav-link fw-bold" href="/api/list/new">Add your home</a>
-         <a class="nav-link fw-bold" href="/api/list/book/my-bookings">My Bookings</a>
-          <a class="nav-link fw-bold" href="/api/list/book/owner">Owner Bookings</a>
+        <a class="nav-link fw-bold" href="/api/list/new">Add your home</a>
+        <a class="nav-link fw-bold" href="/api/list/book/my-bookings"
+          >My Properties</a
+        >
+        <a class="nav-link fw-bold" href="/api/list/book/owner"
+          >Owner Bookings</a
+        >
         <a class="nav-link fw-bold" href="/api/user/logout">Log Out</a>
         <% } %>
       </div>

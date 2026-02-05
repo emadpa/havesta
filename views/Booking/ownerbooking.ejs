@@ -7,8 +7,34 @@
   <p>You don't own any properties yet.</p>
   <% } else if (bookings.length === 0) { %>
   <p>No one has booked your properties yet.</p>
-  <% } else { %> <% bookings.forEach(b => { %>
-  <div class="card mb-2">
+  <% } else { %> 
+    <div class="row mb-3">
+  <div class="col-md-4">
+    <select id="propertyFilter" class="form-select">
+      <option value="all">All Properties</option>
+      <% properties.forEach(p => { %>
+        <option value="<%= p._id %>"><%= p.title %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="col-md-4">
+    <select id="statusFilter" class="form-select">
+      <option value="all">All Bookings</option>
+      <option value="upcoming">Upcoming</option>
+      <option value="ongoing">Ongoing</option>
+      <option value="past">Past</option>
+    </select>
+  </div>
+</div>
+
+   <% bookings.forEach(b => { %>
+  <div 
+    class="card mb-2 booking-card"
+    data-property="<%= b.property._id %>"
+    data-start="<%= b.startDate.toISOString() %>"
+    data-end="<%= b.endDate.toISOString() %>"
+  >
     <div class="card-body">
       <h5><%= b.property.title %></h5>
       <p>
@@ -18,5 +44,55 @@
       </p>
     </div>
   </div>
-  <% }) %> <% } %>
+<% }) %>
+<% } %>
+
+<div id="noResults" class="alert alert-warning mt-3 d-none text-center">
+  No bookings match your selected filters.
 </div>
+
+<script>
+  const noResults = document.getElementById("noResults");
+  const propertyFilter = document.getElementById("propertyFilter");
+  const statusFilter = document.getElementById("statusFilter");
+  const cards = document.querySelectorAll(".booking-card");
+ 
+  function applyFilters() {
+    const selectedProperty = propertyFilter.value;
+    const selectedStatus = statusFilter.value;
+    const today = new Date();
+     let visibleCount=0;
+    cards.forEach(card => {
+      const propertyId = card.dataset.property;
+      const start = new Date(card.dataset.start);
+      const end = new Date(card.dataset.end);
+
+      let show = true;
+   
+      // Property filter
+      if (selectedProperty !== "all" && propertyId !== selectedProperty) {
+        show = false;
+      }
+
+      // Status filter
+      if (selectedStatus === "upcoming" && start <= today) {
+        show = false;
+      }
+
+      if (selectedStatus === "ongoing" && !(start <= today && end >= today)) {
+        show = false;
+      }
+
+      if (selectedStatus === "past" && end >= today) {
+        show = false;
+      }
+
+      card.style.display = show ? "block" : "none";
+      if (show) visibleCount++;
+        noResults.classList.toggle("d-none", visibleCount !== 0);
+    });
+  }
+
+  propertyFilter.addEventListener("change", applyFilters);
+  statusFilter.addEventListener("change", applyFilters);
+</script>

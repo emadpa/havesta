@@ -18,7 +18,7 @@ module.exports.index = async (req, res) => {
     // No country filter — show all listings
     listings = await List.find({});
   }
-  res.render("listings/lists", { listings, q:country });
+  res.render("listings/lists", { listings, q: country });
 };
 
 module.exports.renderformfornewlist = async (req, res) => {
@@ -34,7 +34,10 @@ module.exports.showlist = async (req, res) => {
     req.flash("error", "List you requested did not exist");
     return res.redirect("/api/list");
   }
-  return res.render("listings/show", { list });
+  return res.render("listings/show", {
+    list,
+    mapToken: process.env.MAP_ACCESS_TOKEN,
+  });
 };
 
 module.exports.renderformforedit = async (req, res) => {

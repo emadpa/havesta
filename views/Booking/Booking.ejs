@@ -6,26 +6,94 @@
     <% if(curuser && !curuser._id.equals(list.owner._id)) { %>
 
   <h1  class="col-6 offset-3 mt-3">Book this property</h1>
-  <form method="POST" action="/api/list/<%= list._id %>/book" class="needs-validation" novalidate>
+  <form  class="needs-validation" novalidate>
     <div class="col-6 offset-3">
         <div class="mb-3">
-          <label for="startDate" class="form-label fw-bold">Start Date:</label>
-          <input name="startDate" class="form-control"  type="date" id="startDate" required>
+          <label for="startDate" class="form-label fw-bold">Check In:</label>
+          <input name="startDate" class="form-control"  type="date" id="startDate" min="<%= new Date().toISOString().split('T')[0] %>" required>
            <div class="invalid-feedback">
             please enter start date
            </div>
         </div>
      <div class="mb-3">
-          <label for="endDate" class="form-label fw-bold">End Date:</label>
-          <input name="endDate" class="form-control"  type="date" id="endDate" required>
+          <label for="endDate" class="form-label fw-bold">Check Out:</label>
+          <input name="endDate" class="form-control"  type="date" id="endDate" min="<%= new Date().toISOString().split('T')[0] %>" required>
            <div class="invalid-feedback">
             please enter end date
            </div>
         </div>
     
-    <button type="submit" class="btn btn-success mt-2">Book Now</button>
+    <button type="button" class="btn btn-success mt-2"   onclick="startPayment( '<%= list._id %>')">Book Now</button> 
      </div>
   </form>
    
 <% } %>
 </div>
+
+
+<script>
+  async function startPayment( listingId) {
+
+    try {
+     
+        const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
+
+  
+  if (!startDate || !endDate) {
+    alert("Please select start and end dates");
+    return;
+  }
+
+  if (new Date(startDate) >= new Date(endDate)) {
+    alert("End date must be after start date");
+    return;
+  }
+      const res = await fetch("/api/payment/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ listingId,startDate,endDate }),
+      });
+
+      const data = await res.json();
+      if (!data.success) return alert("Payment failed");
+
+      const options = {
+        key: data.key,
+        amount: data.order.amount,
+        currency: "INR",
+        name: "Havesta",
+        description: "Property Booking",
+        order_id: data.order.id,
+
+        handler: async function (response) {
+          
+       
+
+          // 3️⃣ CREATE BOOKING (ONLY ONCE)
+          await fetch(`/api/list/book/${listingId}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              startDate: document.getElementById("startDate").value,
+              endDate: document.getElementById("endDate").value,
+              paymentId: response.razorpay_payment_id,
+              orderId: response.razorpay_order_id,
+              signature: response.razorpay_signature,
+            }),
+          });
+
+          alert("✅ Booking successful!");
+          window.location.href = "/api/list/book/my-bookings";
+        },
+
+        theme: { color: "#198754" },
+      };
+       console.log("Razorpay:", typeof Razorpay);
+      new Razorpay(options).open();
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
+    }
+  }
+</script>

@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') %>
 <script>
 
-  const token="<%=process.env.MAP_ACCESS_TOKEN%>";
+  const token = "<%= mapToken %>";
   const list=<%-JSON.stringify(list)%>;
 
 </script>
@@ -21,7 +21,7 @@
            <%= list.location %><br>
            <%= list.country %><br>
         </p>
-       <%if(curuser && curuser._id.equals(list.owner._id)) {%>
+       <%if(curuser && list.owner && curuser._id.equals(list.owner._id)) {%>
         <div class="row">
           <form method="GET" action="/api/list/<%=list._id%>/edit" class="col-2">
             <button type="submit" class="btn btn-danger w-100">Edit</button>
@@ -99,7 +99,7 @@
        <h3>Where you"ll be</h3>
        <div id="map"></div>
   </div>
-
+ 
 </div>
 
 <script src="/js/map.js"></script>

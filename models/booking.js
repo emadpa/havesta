@@ -5,12 +5,12 @@ const Schema = mongoose.Schema;
 const bookingSchema = new Schema({
   property: {
     type: Schema.Types.ObjectId,
-    ref: "List", 
+    ref: "List",
     required: true,
   },
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User", 
+    ref: "User",
     required: true,
   },
   startDate: {
@@ -25,9 +25,10 @@ const bookingSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  paymentId: { type: String, required: true },
+  orderId: { type: String, required: true },
 });
 
-const Booking=mongoose.model("Booking", bookingSchema);
-
+const Booking = mongoose.model("Booking", bookingSchema);
 
 module.exports = Booking;

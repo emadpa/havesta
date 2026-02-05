@@ -14,7 +14,7 @@ router
     isloggedin,
     validatelist,
     upload.single("list[image]"),
-    wrapAsync(listscontroller.createlist)
+    wrapAsync(listscontroller.createlist),
   );
 
 router.get("/new", isloggedin, wrapAsync(listscontroller.renderformfornewlist));
@@ -27,7 +27,7 @@ router
     isowner,
     validatelist,
     upload.single("list[image]"),
-    wrapAsync(listscontroller.updatelist)
+    wrapAsync(listscontroller.updatelist),
   )
   .delete(isloggedin, isowner, wrapAsync(listscontroller.deletelist));
 
@@ -35,7 +35,7 @@ router.get(
   "/:id/edit",
   isloggedin,
   isowner,
-  wrapAsync(listscontroller.renderformforedit)
+  wrapAsync(listscontroller.renderformforedit),
 );
 
 module.exports = router;

@@ -15,7 +15,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-
+const paymentroute = require("./routes/payment.js");
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 }
@@ -64,8 +64,8 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(User.serializeUser()); //decide what to store in session
+passport.deserializeUser(User.deserializeUser()); //retrieves full user from session ID on each request.
 
 app.use((req, res, next) => {
   res.locals.authenticated = req.isAuthenticated();
@@ -79,6 +79,7 @@ app.use("/api/list", listroute);
 app.use("/api/list/:id/review/", reviewroute);
 app.use("/api/user", userroute);
 app.use("/api/list/book", bookingroute);
+app.use("/api/payment", paymentroute);
 
 app.get("/", async (req, res) => {
   let listings = await List.find({});

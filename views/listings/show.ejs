@@ -2,7 +2,7 @@
 <script>
 
   const token = "<%= mapToken %>";
-  const list=<%-JSON.stringify(list)%>;
+  const list=<%- JSON.stringify(list) %>;
 
 </script>
 <div class="row">
@@ -74,7 +74,7 @@
     <%if(list.reviews.length>0){%>
      <P><B>All Reviews</B></P>
      <div class="row">
-    <% for(review of list.reviews) {%>
+    <% for(let review of list.reviews) {%>
      <div class="col-5 ms-2 mb-2">
     <div class="card " style="padding-left: 1rem;"  >
       <div class="card-body">
@@ -96,7 +96,7 @@
   <% } %>
  </div>
     <div class="col-8 offset-2 mt-2 mb-2" >
-       <h3>Where you"ll be</h3>
+       <h3>Where you&apos;ll be</h3>
        <div id="map"></div>
   </div>
  
